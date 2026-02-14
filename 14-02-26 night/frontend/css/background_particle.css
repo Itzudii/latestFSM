@@ -1,0 +1,26 @@
+ /* Animated background particles */
+ .particle {
+     position: fixed;
+     width: 2px;
+     height: 2px;
+     background: var(--accent-cyan);
+     border-radius: 50%;
+     opacity: 0.3;
+     animation: float 20s infinite ease-in-out;
+ }
+
+ @keyframes float {
+
+     0%,
+     100% {
+         transform: translate(0, 0);
+     }
+
+     33% {
+         transform: translate(100px, -100px);
+     }
+
+     66% {
+         transform: translate(-100px, 100px);
+     }
+ }

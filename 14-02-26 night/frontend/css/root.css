@@ -1,0 +1,16 @@
+:root {
+            /* --bg-primary: #0f0f23;
+            --bg-secondary: #1a1a35; */
+            --bg-primary: #000000;
+            --bg-secondary: #000000;
+            --bg-glass: rgb(38 38 38 / 70%);
+            --accent-cyan: #00d9ff;
+            --accent-pink: #ff006e;
+            --accent-purple: #8338ec;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0c0;
+            --text-muted: #6b6b8f;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --hover-bg: rgb(255 255 255 / 0%);
+            --dropdown-bg: rgb(38 38 38 / 96%);
+        }

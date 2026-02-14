@@ -1,0 +1,108 @@
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    min-width: 180px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-section {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.sidebar-title {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.sidebar-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 7px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    color: var(--text-secondary);
+    font-weight: 500;
+    font-size: 13px;
+    border: 1px solid transparent;
+}
+
+.sidebar-item:hover {
+    background: var(--hover-bg);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+    transform: translateX(4px);
+}
+
+.sidebar-item.active {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.15), rgba(131, 56, 236, 0.15));
+    color: var(--text-primary);
+    border-color: var(--accent-cyan);
+    box-shadow: 0 4px 16px rgba(0, 217, 255, 0.2);
+}
+
+.sidebar-icon {
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+}
+
+.storage-indicator {
+    margin-top: auto;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.storage-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.storage-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+}
+
+.storage-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+    border-radius: 3px;
+    width: 68%;
+    animation: fillStorage 1.5s ease-out;
+}
+
+@keyframes fillStorage {
+    from {
+        width: 0;
+    }
+}
+
+.storage-text {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    font-family: 'DM Mono', monospace;
+}

@@ -1,0 +1,98 @@
+/* Rename functionality styles */
+
+.file-name-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.file-name-grid-wrapper {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+/* List view rename input */
+.file-name-input {
+    width: 100%;
+    padding: 2px 6px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.5);
+    border-radius: 4px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+}
+
+.file-name-input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(139, 92, 246, 0.8);
+}
+
+/* Grid view rename input */
+.file-name-input-grid {
+    width: 100%;
+    max-width: 180px;
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.5);
+    border-radius: 4px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    text-align: center;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.2);
+    margin: 0 auto;
+}
+
+.file-name-input-grid:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(139, 92, 246, 0.8);
+}
+
+/* Make file names clickable */
+.file-name,
+.file-name-grid {
+    cursor: text;
+    user-select: none;
+    padding: 2px 4px;
+    border-radius: 3px;
+    transition: background-color 0.15s;
+}
+
+.file-name:hover,
+.file-name-grid:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Prevent text selection during rename mode activation */
+.file-name::selection,
+.file-name-grid::selection {
+    background: transparent;
+}
+
+/* Icon should look clickable for opening */
+.file-icon-list,
+.file-icon-grid-div {
+    cursor: pointer;
+}
+
+.file-icon-list:hover {
+    transform: scale(1.1);
+    transition: transform 0.2s;
+}
+
+.file-icon-grid-div:hover .file-icon-grid {
+    transform: scale(1.05);
+    transition: transform 0.2s;
+}
+
+/* Selected file in rename mode */
+.file-item-list.selected .file-name,
+.file-item-grid.selected .file-name-grid {
+    background-color: rgba(139, 92, 246, 0.1);
+}

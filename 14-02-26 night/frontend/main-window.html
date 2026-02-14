@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortex - Modern File Manager</title>
+    <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0&icon_names=folder" /> -->
+    <link rel="stylesheet" href="./font/goo.css" />
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap"rel="stylesheet"> -->
+    <link rel="stylesheet" href="./css/app_container_and_webkit.css">
+    <link rel="stylesheet" href="./css/background_particle.css">
+    <link rel="stylesheet" href="./css/body.css">
+    <link rel="stylesheet" href="./css/context_menu.css">
+    <link rel="stylesheet" href="./css/details_panel.css">
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/grid_and_list_view.css">
+    <link rel="stylesheet" href="./css/menu_bar.css">
+    <link rel="stylesheet" href="./css/responsive.css">
+    <link rel="stylesheet" href="./css/root.css">
+    <link rel="stylesheet" href="./css/side_bar.css">
+    <link rel="stylesheet" href="./css/title_bar.css">
+    <link rel="stylesheet" href="./css/tool_bar.css">
+    <link rel="stylesheet" href="./css/rename-styles.css">
+    <script src="./js/script-main.js"></script>
+    <!-- <script src="./js/rename-functionality.js"></script> -->
+</head>
+
+<body>
+    <!-- Background particles -->
+    <div class="particle" style="top: 20%; left: 10%;"></div>
+    <div class="particle" style="top: 60%; left: 80%; animation-delay: 5s;"></div>
+    <div class="particle" style="top: 40%; left: 50%; animation-delay: 10s;"></div>
+    <div class="particle" style="top: 80%; left: 30%; animation-delay: 15s;"></div>
+
+    <div class="app-container">
+        <!-- <style>
+            .rename-div{
+                width: 100vw;
+                height: 100vh;
+                position: absolute;
+                z-index:999;
+                backdrop-filter: blur(10px);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+            }
+            .rename-frame{
+                height: 50%;
+                width: 50%;
+                background-color: rgb(105, 105, 105);
+            }
+        </style>
+        <div class="rename-div">
+            <div class="rename-frame">
+
+                <li>File Name</li>
+                <input type="text">
+            </div>
+
+        </div> -->
+        <!-- Title Bar -->
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <div class="window-controls">
+                    <button class="window-btn close"></button>
+                    <button class="window-btn minimize"></button>
+                    <button class="window-btn maximize"></button>
+                </div>
+                <div class="app-logo">Cortex-FS</div>
+
+                <!-- Menu Bar -->
+                <div class="menu-bar">
+                    <div class="menu-item" onmouseenter="openMenu(this)" onmouseleave="closeMenu(this)">
+                        File
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item-div">
+
+                                <div class="dropdown-item"><!--onclick="showNewFileDialog()"-->
+                                    <span>📄</span>
+                                    <span>New</span>
+                                    <span class="shortcut">Ctrl+N</span>
+                                </div>
+                                <!-- style //////// -->
+                                <style>
+                                    .dropdown-item-item {
+                                        width: 178px;
+                                    }
+
+                                    .dropdown-item-menu {
+                                        display: none;
+                                        width: 100px;
+
+                                    }
+
+                                    .dropdown-item-div:hover .dropdown-item-menu {
+                                        display: block;
+                                    }
+                                </style>
+                                <div class="dropdown-item-menu">
+                                    <div class="dropdown-item dropdown-item-item" onclick="createFolder()">
+                                        <span> </span>
+                                        <span>Folder</span>
+                                        <!-- <span class="shortcut">Ctrl+N</span> -->
+                                    </div>
+                                    <div class="dropdown-item dropdown-item-item" onclick="createTxt()">
+                                        <span> </span>
+                                        <span>Text File</span>
+                                        <!-- <span class="shortcut">Ctrl+N</span> -->
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="dropdown-item" onclick="openFile()">
+                                <span>📂</span>
+                                <span>Open</span>
+                                <span class="shortcut">Ctrl+O</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item" onclick="exitApp()">
+                                <span>🚪</span>
+                                <span>Exit</span>
+                                <span class="shortcut">Alt+F4</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" onmouseenter="openMenu(this)" onmouseleave="closeMenu(this)">
+                        Edit
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item" onclick="cutFile()">
+                                <span>✂️</span>
+                                <span>Cut</span>
+                                <span class="shortcut">Ctrl+X</span>
+                            </div>
+                            <div class="dropdown-item" onclick="copyFile()">
+                                <span>📋</span>
+                                <span>Copy</span>
+                                <span class="shortcut">Ctrl+C</span>
+                            </div>
+                            <div class="dropdown-item" onclick="pasteFile()">
+                                <span>📌</span>
+                                <span>Paste</span>
+                                <span class="shortcut">Ctrl+V</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item" onclick="deleteFile()">
+                                <span>🗑️</span>
+                                <span>Delete</span>
+                                <span class="shortcut">Del</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item" onmouseenter="openMenu(this)" onmouseleave="closeMenu(this)">
+                        View
+                        <div class="dropdown-menu">
+                            <div class="dropdown-item" onclick="refresh()">
+                                <span>↻</span>
+                                <span>Refresh</span>
+                                <span class="shortcut">F5</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item" onclick="switchView('grid')">
+                                <span>⊞</span>
+                                <span>Grid View</span>
+                            </div>
+                            <div class="dropdown-item" onclick="switchView('list')">
+                                <span>☰</span>
+                                <span>List View</span>
+                            </div>
+                            <div class="dropdown-divider"></div>
+                            <div class="dropdown-item" onclick="toggleDetailsPanel()">
+                                <span>📊</span>
+                                <span>Show Details Panel</span>
+                                <span class="shortcut">Ctrl+D</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <button class="icon-btn" onclick="toggleDetailsPanel()" title="Toggle Details Panel">
+                    <span>📊</span>
+                </button>
+                <button class="action-btn" onclick="openSearchWindow()">
+                    <span>✨ Search</span>
+                </button>
+            </div>
+        </div>
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <div class="nav-buttons">
+                <button class="nav-btn" onclick="goBack()" title="Back">←</button>
+                <button class="nav-btn" onclick="goForward()" title="Forward">→</button>
+                <button class="nav-btn" onclick="goUp()" title="Up">↑</button>
+                <button class="nav-btn" onclick="refresh()" title="Refresh">↻</button>
+            </div>
+
+            <div class="breadcrumb" id="breadcrumbContainer">
+                <input class="breadcrumb-input" id="breadcrumbInput" type="text" style="display: none;"
+                    onblur="hideBreadcrumbInput()" onkeydown="handleBreadcrumbKeydown(event)">
+                <div class="breadcrumb-buttons" id="breadcrumbButtons" onclick="showBreadcrumbInput()">
+                    <!-- <span class="breadcrumb-item" onclick="navigateToBreadcrumb(event, 0)">🏠 Home</span>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-item" onclick="navigateToBreadcrumb(event, 1)">Documents</span>
+                    <span class="breadcrumb-separator">›</span>
+                    <span class="breadcrumb-item" onclick="navigateToBreadcrumb(event, 2)">Projects</span> -->
+                </div>
+            </div>
+
+            <div class="search-bar">
+                <span>🔍</span>
+                <input type="text" placeholder="Search files and folders..." oninput="searchFiles(this.value)">
+            </div>
+
+            <div class="view-controls">
+                <button class="view-btn" onclick="switchView('list')" title="List View">☰</button>
+                <button class="view-btn active" onclick="switchView('grid')" title="Grid View">⊞</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Sidebar Quick Access -->
+            <div class="sidebar">
+                <div class="sidebar-section" id="sidebar-quick-access">
+                    <div class="sidebar-title">Quick Access</div>
+                    <div class="sidebar-item active" onclick="navigateTo('home')">
+                        <span class="sidebar-icon">🏠</span>
+                        <span>Home</span>
+                    </div>
+                    <div class="sidebar-item" onclick="navigateTo('desktop')">
+                        <span class="sidebar-icon">🖥️</span>
+                        <span>Desktop</span>
+                    </div>
+                    <div class="sidebar-item" onclick="navigateTo('documents')">
+                        <span class="sidebar-icon">📄</span>
+                        <span>Documents</span>
+                    </div>
+                    <div class="sidebar-item" onclick="navigateTo('downloads')">
+                        <span class="sidebar-icon">📥</span>
+                        <span>Downloads</span>
+                    </div>
+                    <div class="sidebar-item" onclick="navigateTo('pictures')">
+                        <span class="sidebar-icon">🖼️</span>
+                        <span>Pictures</span>
+                    </div>
+                    <div class="sidebar-item" onclick="navigateTo('videos')">
+                        <span class="sidebar-icon">🎬</span>
+                        <span>Videos</span>
+                    </div>
+                    <div class="sidebar-item" onclick="navigateTo('music')">
+                        <span class="sidebar-icon">🎵</span>
+                        <span>Music</span>
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Cloud Storage</div>
+                    <div class="sidebar-item" onclick="navigateTo('cloud')">
+                        <span class="sidebar-icon">☁️</span>
+                        <span>Cloud Drive</span>
+                    </div>
+                    <div class="sidebar-item" onclick="navigateTo('shared')">
+                        <span class="sidebar-icon">👥</span>
+                        <span>Shared with me</span>
+                    </div>
+                    <div class="sidebar-item" onclick="navigateTo('recent')">
+                        <span class="sidebar-icon">⏱️</span>
+                        <span>Recent</span>
+                    </div>
+                    <div class="sidebar-item" onclick="navigateTo('starred')">
+                        <span class="sidebar-icon">⭐</span>
+                        <span>Starred</span>
+                    </div>
+                    <div class="sidebar-item" onclick="navigateTo('trash')">
+                        <span class="sidebar-icon">🗑️</span>
+                        <span>Trash</span>
+                    </div>
+                </div>
+
+                <div class="storage-indicator">
+                    <div class="storage-label">Storage Used</div>
+                    <div class="storage-bar">
+                        <div class="storage-fill"></div>
+                    </div>
+                    <div class="storage-text">136 GB of 200 GB used</div>
+                </div>
+            </div>
+
+            <!-- Content Area -->
+            <div class="content-area" oncontextmenu="showContextMenuArea(event, 0)">
+
+
+                <!-- File Grid -->
+                <div class="file-grid">
+                    <div class="grid-header" id="gridHeader" style="display: none;">
+                        <div>Name</div>
+                        <div>Size</div>
+                        <div>Modified</div>
+                        <div>Type</div>
+                    </div>
+                    <div class="grid-content grid-view" id="gridContent">
+                        <!-- Grid View Items -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Details Panel -->
+            <div class="details-panel" id="detailsPanel">
+                <div class="details-header">
+                    <div class="details-title">
+                        <span>📋</span>
+                        <span>Details</span>
+                    </div>
+                    <button class="details-close" onclick="toggleDetailsPanel()">✕</button>
+                </div>
+
+                <div class="details-preview">
+                    <div class="details-icon-large" id="detailsIconLarge">📄</div>
+                    <div class="details-file-name" id="detailsFileName">Select a file</div>
+                    <div class="details-file-type" id="detailsFileType">No file selected</div>
+                </div>
+
+                <div class="details-section">
+                    <div class="details-section-title">
+                        <span>📋</span>
+                        <span>General</span>
+                    </div>
+                    <div class="details-row">
+                        <div class="details-label">Size</div>
+                        <div class="details-value" id="detailsSize">-</div>
+                    </div>
+                    <div class="details-row">
+                        <div class="details-label">Location</div>
+                        <div class="details-value" id="detailsLocation">-</div>
+                    </div>
+                    <div class="details-row">
+                        <div class="details-label">Created</div>
+                        <div class="details-value" id="detailsCreated">-</div>
+                    </div>
+                    <div class="details-row">
+                        <div class="details-label">Modified</div>
+                        <div class="details-value" id="detailsModified">-</div>
+                    </div>
+                    <div class="details-row">
+                        <div class="details-label">Owner</div>
+                        <div class="details-value" id="detailsOwner">-</div>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <div class="details-section-title">
+                        <span>🏷️</span>
+                        <span>Tags</span>
+                    </div>
+                    <div class="details-tags" id="detailsTags">
+                        <div class="details-tag">Important</div>
+                        <div class="details-tag">Work</div>
+                        <div class="details-tag">2026</div>
+                    </div>
+                </div>
+
+                <div class="details-section">
+                    <div class="details-section-title">
+                        <span>🔒</span>
+                        <span>Permissions</span>
+                    </div>
+                    <div class="details-permissions">
+                        <div class="permission-box">
+                            <div class="permission-icon">👤</div>
+                            <div class="permission-label">Owner</div>
+                            <div class="permission-value" id="owner-permission">R/W</div>
+                        </div>
+                        <div class="permission-box">
+                            <div class="permission-icon">👥</div>
+                            <div class="permission-label">Group</div>
+                            <div class="permission-value" id="group-permission">Read</div>
+                        </div>
+                        <div class="permission-box">
+                            <div class="permission-icon">🌐</div>
+                            <div class="permission-label">Others</div>
+                            <div class="permission-value" id="other-permission">Read</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="details-section" id="detailsStorageSection" style="display: none;">
+                    <div class="details-section-title">
+                        <span>💾</span>
+                        <span>Storage</span>
+                    </div>
+                    <div class="details-row">
+                        <div class="details-label">Total Size</div>
+                        <div class="details-value" id="detailsTotalSize">-</div>
+                    </div>
+                    <div class="details-row">
+                        <div class="details-label">Items</div>
+                        <div class="details-value" id="detailsItemCount">-</div>
+                    </div>
+                    <div class="details-progress">
+                        <div class="details-progress-bar" id="detailsProgressBar" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <div class="details-actions">
+                    <button class="details-btn primary" onclick="openFile()">
+                        <span>📂</span>
+                        <span>Open</span>
+                    </button>
+                    <button class="details-btn" onclick="shareFile()">
+                        <span>🔗</span>
+                        <span>Share</span>
+                    </button>
+                    <button class="details-btn" id="details-btn-rename" onclick="renameFile()">
+                        <span>✏️</span>
+                        <span>Rename</span>
+                    </button>
+                    <button class="details-btn" onclick="deleteFile()">
+                        <span>🗑️</span>
+                        <span>Delete</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Context Menu items -->
+    <div class="context-menu" id="contextMenu-items">
+        <div class="context-item" onclick="openFile()">
+            <span>📂</span>
+            <span>Open</span>
+        </div>
+        <div class="context-item" onclick="toggleDetailsPanel()">
+            <span>📊</span>
+            <span>Show Details</span>
+        </div>
+        <div class="context-divider"></div>
+        <div class="context-item" onclick="renameFile()">
+            <span>✏️</span>
+            <span>Rename</span>
+        </div>
+        <div class="context-item" onclick="copyFile()">
+            <span>📋</span>
+            <span>Copy</span>
+        </div>
+        <div class="context-item" onclick="cutFile()">
+            <span>✂️</span>
+            <span>Cut</span>
+        </div>
+        <div class="context-item" onclick="deleteFile()">
+            <span>🗑️</span>
+            <span>Delete</span>
+        </div>
+        <div class="context-divider"></div>
+        <div class="context-item" onclick="similarFiles()">
+            <span>🗑️</span>
+            <span>duplicates</span>
+        </div>
+        <div class="context-divider"></div>
+        <div class="context-item" id="menu-lockbtn" onclick="lockItem()">
+            <span>🗑️</span>
+            <span>Lock</span>
+        </div>
+        <div class="context-item" id="menu-unlockbtn" onclick="unLockItem()">
+            <span>🗑️</span>
+            <span>UnLock</span>
+        </div>
+        <div class="context-divider"></div>
+        <div class="context-item" onclick="pin()">
+            <span>📂</span>
+            <span>pin to Quick</span>
+        </div>
+    </div>
+    <!-- Context Menu content Area  -->
+    <div class="context-menu" id="contextMenuContentArea">
+        <div class="context-item" onclick="">
+            <span>📂</span>
+            <span>View</span>
+        </div>
+        <div class="context-item" onclick="">
+            <span>📊</span>
+            <span>Group BY</span>
+        </div>
+        <div class="context-divider"></div>
+        <div class="context-item" onclick="">
+            <span>✏️</span>
+            <span>Undo Delete</span>
+        </div>
+        <div class="context-item" onclick="">
+            <span>✂️</span>
+            <span>Properties</span>
+        </div>
+        <div class="context-item" onclick="">
+            <span>🗑️</span>
+            <span>Open in Terminal</span>
+        </div>
+        <div class="context-divider"></div>
+        <div class="context-item" onclick="refresh()">
+            <span>🔗</span>
+            <span>Refresh</span>
+        </div>
+    </div>
+    <!-- Context Menu quick access  -->
+    <div class="context-menu" id="contextMenuQuickAccess">
+        <div class="context-item" onclick="openFileQuick()">
+            <span>📂</span>
+            <span>Open</span>
+        </div>
+        <div class="context-divider"></div>
+        <div class="context-item" onclick="Unpin()">
+            <span>📂</span>
+            <span>Unpin from Quick</span>
+        </div>
+
+    </div>
+    <!-- Context Menu duplicate  -->
+    <style>
+        .menu-titledup {
+            text-align: center;
+            padding: 5px;
+            background: var(--border-color);
+            margin: 6px 0;
+        }
+
+        .duplicate {
+            display: none;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .lock {
+            background-color: #ff2c2c5c;
+        }
+    </style>
+
+    <div class="context-menu duplicate" id="contextMenuDup">
+        <div class="menu-titledup">duplicates paths <button style="float: right;width: 20px;"
+                onclick="closeDupWindow()">X</button></div>
+        <div class="resultdup" id="menu-resultdup">
+
+            <div class="context-item" onclick="openFileQuick()">
+                <span>d:/don'tDelete/Desktop/file management system/testnew/hhr</span>
+                <span><button>copy</button></span>
+            </div>
+
+            <div class="context-item" onclick="openFileQuick()">
+                <span>d:/don'tDelete/Desktop/file management system/testnew/hhr</span>
+                <span><button>copy</button></span>
+            </div>
+        </div>
+
+
+    </div>
+
+</body>
+
+</html>

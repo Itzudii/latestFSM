@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Path Finder</title>
+    <script src="js/search.js"></script>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #892a2a;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .header {
+            background: #1f1f1f;
+            padding: 2px 2px;
+            border-bottom: 1px solid #3a3a3a;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-icon {
+            color: #5a9fd4;
+            font-size: 18px;
+        }
+
+        .header-title {
+            color: #c0c0c0;
+            font-size: 13px;
+            font-weight: normal;
+        }
+
+        .tabs {
+            background: #252525;
+            display: flex;
+            border-bottom: 1px solid #3a3a3a;
+        }
+
+        .tab {
+            padding: 5px 12px;
+            background: #2a2a2a;
+            border: none;
+            color: #c0c0c0;
+            cursor: pointer;
+            font-size: 13px;
+            border-right: 1px solid #3a3a3a;
+            transition: background 0.2s;
+        }
+
+        .tab.active {
+            background: #252525;
+            color: #e0e0e0;
+        }
+
+        .tab:hover {
+            background: #2f2f2f;
+        }
+
+        .content {
+            /* padding: 0px; */
+        }
+
+        .options-section {
+            border: 1px solid #3a3a3a;
+            padding: 6px;
+            /* margin-bottom: 20px; */
+            border-radius: 2px;
+        }
+
+        .section-title {
+            color: #c0c0c0;
+            font-size: 12px;
+            margin-bottom: -4px;
+            font-weight: 600;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            align-items: center;
+            margin-bottom: 5px;
+            gap: 15px;
+        }
+
+        .form-label {
+            color: #c0c0c0;
+            font-size: 13px;
+            text-align: right;
+        }
+
+        .form-input,
+        .form-select {
+            background: #3a3a3a;
+            border: 1px solid #4a4a4a;
+            color: #e0e0e0;
+            padding: 8px 12px;
+            font-size: 12px;
+            border-radius: 2px;
+            outline: none;
+            width: 100%;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: #5a9fd4;
+            background: #404040;
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23c0c0c0' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 35px;
+        }
+
+        .checkbox-row {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #c0c0c0;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            accent-color: #5a9fd4;
+        }
+
+        .search-button {
+            background: #5a9fd4;
+            color: white;
+            border: none;
+            padding: 10px 40px;
+            font-size: 13px;
+            border-radius: 2px;
+            cursor: pointer;
+            float: right;
+            /* margin-top: 10px; */
+            transition: background 0.2s;
+        }
+
+        .search-button:hover {
+            background: #6ab0e4;
+        }
+
+        .search-button:active {
+            background: #4a8fc4;
+        }
+
+        .results-section {
+            border: 1px solid #3a3a3a;
+            padding: 6px;
+            min-height: 359px;
+            border-radius: 2px;
+            background: #252525;
+        }
+
+        .results-title {
+            color: #c0c0c0;
+            font-size: 12px;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .results-list {
+            background: #2a2a2a;
+            border: 1px solid #3a3a3a;
+            min-height: 332px;
+            padding: 10px;
+            overflow-y: auto;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 12px;
+            color: #d0d0d0;
+        }
+
+        .results-list::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .results-list::-webkit-scrollbar-track {
+            background: #252525;
+            border-radius: 2px;
+        }
+
+        .results-list::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 2px;
+        }
+
+        .results-list::-webkit-scrollbar-thumb:hover {
+            background: #5a9fd4;
+        }
+
+        .result-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: #333;
+            border: 1px solid #444;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .result-item:hover {
+            background: #3a3a3a;
+            border-color: #5a9fd4;
+            transform: translateX(4px);
+            box-shadow: 0 2px 8px rgba(90, 159, 212, 0.2);
+        }
+
+        .result-item:active {
+            background: #404040;
+            transform: translateX(2px);
+        }
+
+        .result-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .result-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .result-filename {
+            color: #e0e0e0;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .result-path {
+            color: #888;
+            font-size: 11px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .result-item.copied {
+            background: #2d4a2d;
+            border-color: #4a7c4a;
+        }
+
+        .result-status {
+            font-size: 11px;
+            color: #7fc77f;
+            font-weight: 600;
+            flex-shrink: 0;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .result-item.copied .result-status {
+            opacity: 1;
+        }
+
+        .no-results {
+            color: #808080;
+            text-align: center;
+            padding: 50px;
+            font-size: 13px;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <span class="header-icon">🔍</span>
+            <span class="header-title">Search: <strong id="cwd-field">D:\Path-Finder</strong></span>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="switchTab('search')">Search for Files</button>
+            <button class="tab" onclick="switchTab('aiseach')">aiseach</button>
+            <button class="tab" onclick="switchTab('duplicate')">Search for Text</button>
+        </div>
+
+        <div class="content">
+            <div class="options-section" id="search-section" style="display: none;">
+                <div class="section-title">Options:Rename Search</div>
+
+                <div class="form-row">
+                    <label class="form-label">Search For:</label>
+                    <select class="form-select" id="searchFor">
+                        <option value="f">Files</option>
+                        <option value="d">Folders</option>
+                        <option value="fd">Files and Folders</option>
+                    </select>
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label">Search Where:</label>
+                    <select class="form-select" id="searchWhere">
+                        <option value="pd">Parent Directory</option>
+                        <option value="sd">Include Subdirectories</option>
+                        <option value="rd">root</option>
+                    </select>
+                </div>
+
+                <!-- <div class="form-row">
+                    <label class="form-label">Output:</label>
+                    <select class="form-select" id="output">
+                        <option value="fullpath">Full Path</option>
+                        <option value="relative">Relative Path</option>
+                        <option value="filename">Filename Only</option>
+                    </select>
+                </div> -->
+
+                <div class="form-row">
+                    <label class="form-label">Text:</label>
+                    <input type="text" class="form-input" id="searchText" placeholder="Enter search term...">
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label">File Extension:</label>
+                    <input type="text" class="form-input" id="fileExtension" placeholder="e.g., .txt, .pdf, .jpg">
+                </div>
+
+                <div class="form-row">
+                    <label class="form-label">Substring:</label>
+                    <input type="text" class="form-input" id="substringSearch"
+                        placeholder="Search for substring in filename...">
+                </div>
+
+
+                <div class="clearfix">
+                    <button class="search-button" onclick="performSearch()">Search</button>
+                </div>
+            </div>
+            <div class="options-section" id="duplicate-section" style="display: none;">
+                <div class="section-title">Options: find Duplicates</div>
+
+
+                <div class="clearfix">
+                    <button class="search-button" onclick="duplicates()">Search</button>
+                </div>
+            </div>
+            <div class="options-section" id="aiseach-section" style="display: none;">
+                <div class="section-title">Options:AI based Search</div>
+                <div class="form-row">
+                    <label class="form-label">tags:</label>
+                    <input type="text" class="form-input" id="tagsEntry" placeholder="Enter tags with commons...">
+                </div>
+                <div class="clearfix">
+                    <button class="search-button" onclick="tagsSearch()">Search</button>
+                </div>
+            </div>
+            <style>
+                .seperator {
+                    width: 100%;
+                    height: 50px;
+                }
+            </style>
+
+            <div class="results-section">
+                <div class="results-title">Search Results:</div>
+                <div class="results-list" id="resultsList">
+                    <div class="no-results">No search performed yet. Configure your search options and click "Search".
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
